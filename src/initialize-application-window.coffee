@@ -7,6 +7,7 @@ FileSystemBlobStore = require './file-system-blob-store'
 NativeCompileCache = require './native-compile-cache'
 CompileCache = require './compile-cache'
 ModuleCache = require './module-cache'
+scrollbarStyle = require 'scrollbar-style'
 
 if global.isGeneratingSnapshot
   require('about')
@@ -66,6 +67,9 @@ global.atom = new AtomEnvironment({
   applicationDelegate: new ApplicationDelegate,
   enablePersistence: true
 })
+
+scrollbarStyle.observePreferredScrollbarStyle (style) ->
+  TextEditor.setOverlayScrollbars(style is 'overlay')
 
 TextEditor.setScheduler(global.atom.views)
 global.atom.preloadPackages()
